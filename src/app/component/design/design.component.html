@@ -1,0 +1,112 @@
+<div class="header">
+  <form [formGroup]="canvasForm">
+    <div class="form-header" fxLayout="row" fxLayoutAlign="space-between center" >
+      <mat-form-field fxFlex="50">
+        <mat-label>Form Name</mat-label>
+        <input matInput placeholder="Form Name" formControlName="name" type="text">
+        <mat-error>
+          Form name is required.
+        </mat-error>
+      </mat-form-field>
+      <div fxLayoutGap="30px">
+        <button *ngIf="(isSave$ | async)" mat-stroked-button color="primary" (click)="save()">
+          Save
+        </button>
+        <div class="text-color" fxLayoutAlign="end center" fxFlex>
+          <mat-icon (click)="close()">close</mat-icon>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<mat-divider></mat-divider>
+<div class="content">
+  <div fxLayout="column" [ngClass]="(isMenu ? 'menu-open':'menu-icons')" mode="side">
+    <div *ngIf="isMenu" fxLayout="row" class="bottom10 hand text-color" (click)="isMenu = !isMenu" fxLayoutAlign="end">
+      <mat-icon>chevron_left</mat-icon>
+      <mat-icon *ngIf="!isMenu">menu</mat-icon>
+    </div>
+    <div *ngIf="!isMenu" fxLayout="row" class="bottomtop10 hand text-color" (click)="isMenu = !isMenu"
+      fxLayoutAlign="center">
+      <mat-icon>menu</mat-icon>
+    </div>
+    <div *ngIf="isMenu" class="menu" fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center start">
+      <div cdkDropList 
+        class="form-list" 
+        id="formList" 
+        #formList="cdkDropList"
+        [cdkDropListData]="controlLabels" 
+        [cdkDropListConnectedTo]="['canvas']" 
+        class="form-list">
+        <div class="text-color control-box grab" *ngFor="let control of controlLabels" cdkDrag>{{control}}</div>
+      </div>
+    </div>
+    <div *ngIf="!isMenu" class="menu" fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center start">
+      <div cdkDropList 
+        id="formList"
+        #formList="cdkDropList" 
+        [cdkDropListData]="controlLabels"
+        [cdkDropListConnectedTo]="['canvas']">
+        <div (click)=clearIndex() class="text-color control-box-icon grab" *ngFor="let control of controlIcons" cdkDrag>
+          <mat-icon>{{control}}</mat-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="column" fxFlex>
+    <app-canvas [connectedTo]="['formList']"></app-canvas>
+  </div>
+</div>
+<div class="footer">
+  <mat-toolbar *ngIf="(isSave$ | async)" fxLayoutAlign="space-between center">
+    <div>
+      <button mat-stroked-button color="accent" (click)="publish()">Publish</button>
+      <button mat-button color="primary" (click)="saveAs()">
+        Save As
+      </button>
+    </div>
+    <div>
+      <button mat-button color="warn" (click)="delete()">
+        Delete
+      </button>
+    </div>
+  </mat-toolbar>
+</div>
+<!-- 
+<div fxLayout="column">
+  <mat-sidenav-container fullscreen>
+    <mat-sidenav #sidenav [ngClass]="(isMenu ? 'menu-open':'menu-icons')" mode="side" opened>
+      <div *ngIf="isMenu" fxLayout="row" class="bottom10 hand text-color" (click)="isMenu = !isMenu"
+        fxLayoutAlign="end">
+        <button mat-icon-button>
+          <img src="assets/parrot.svg" height="32px">
+        </button>
+        <mat-icon>chevron_left</mat-icon>
+        <mat-icon *ngIf="!isMenu">menu</mat-icon>
+      </div>
+      <div *ngIf="!isMenu" fxLayout="row" class="bottom10 hand text-color" (click)="isMenu = !isMenu"
+        fxLayoutAlign="center">
+        <mat-icon>menu</mat-icon>
+      </div>
+      <div *ngIf="isMenu" class="menu" fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center start">
+        <div cdkDropList class="form-list" id="formList" #formList="cdkDropList" [cdkDropListData]="designService.controls"
+          [cdkDropListConnectedTo]="dropForm" class="form-list">
+          <div class="text-color control-box grab" *ngFor="let control of controlLabels" cdkDrag>{{control}}</div>
+        </div>
+      </div>
+      <div *ngIf="!isMenu" fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center start">
+        <div cdkDropList #formList="cdkDropList" [cdkDropListData]="designService.controls"
+          [cdkDropListConnectedTo]="dropForm">
+          <div class="text-color control-box-icon grab" *ngFor="let control of controlIcons" cdkDrag>
+            <mat-icon>{{control}}</mat-icon>
+          </div>
+        </div>
+      </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <app-canvas *ngFor="let canvasFormControl of canvasFormControls" [canvasFormControl]="canvasFormControl"
+        [dropForm]="dropForm">
+      </app-canvas>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div> -->

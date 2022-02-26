@@ -1,0 +1,67 @@
+<form *ngIf="isDetail" [formGroup]="radioForm">
+  <div class="text-color mat-h1" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>Radio</div>
+    <div fxLayoutGap="20px">
+      <button mat-icon-button color="primary" (click)="add()">
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
+      <button mat-icon-button (click)="close()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div fxLayout="column" fxLayoutGap="5px">
+    <mat-form-field fxFlex>
+      <mat-label>Label</mat-label>
+      <input (change)="setLabel()" matInput formControlName="label" type="text">
+    </mat-form-field>
+    <label>Required?</label>
+    <mat-radio-group formControlName="required" fxLayoutGap="10px">
+      <mat-radio-button [value]="true" (click)="setRequired(true)">
+        True
+      </mat-radio-button>
+      <mat-radio-button [value]="false" (click)="setRequired(false)">
+        False
+      </mat-radio-button>
+    </mat-radio-group>
+    <mat-form-field class="top-15px" *ngIf="radioRequired" fxFlex>
+      <mat-label>Error Message</mat-label>
+      <input (change)="setError()" matInput formControlName="error" type="text">
+    </mat-form-field>
+    <span *ngIf="!radioRequired">&nbsp;</span>
+  </div>
+  <div formArrayName="radioArray">
+    <div fxLayout="column" fxLayoutGap="10px">
+      <div *ngFor="let radio of radioArray; let i=index">
+        <div class="detail-box" [formGroupName]="i">
+          <div fxLayout="row">
+            <mat-form-field fxFlex>
+              <mat-label>Label</mat-label>
+              <input matInput (change)="updateRadio()" formControlName="label" type="text" required>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row">
+            <mat-form-field fxFlex>
+              <mat-label>Value</mat-label>
+              <input matInput (change)="updateRadio()" formControlName="value" type="text" required>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row">
+            <mat-form-field fxFlex>
+              <mat-label>Label Position</mat-label>
+              <mat-select (selectionChange)="updateRadio()" matNativeControl formControlName="labelPosition" required>
+                <mat-option value="before">Before</mat-option>
+                <mat-option value="after">After</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="end">
+            <mat-icon class="icon-pointer" (click)="delete(i)" color="warn">
+              delete_outline
+            </mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

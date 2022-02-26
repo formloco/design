@@ -1,9 +1,16 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+import { Formloco } from '../app/state/app.state'
 
 export const environment = {
-  production: false
+  production: false,
+
+  authUrl: Formloco.authUrl,
+  linkUrl: Formloco.linkUrl,
+  idbName: Formloco.idbName,
+  tenantId: Formloco.tenantId,
+  version: 'Development'
 };
 
 /*

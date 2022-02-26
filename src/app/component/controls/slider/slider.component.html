@@ -1,0 +1,23 @@
+<div class="text-color" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+  <div class="hand">
+    <mat-icon (click)="designService.deleteControl(index)">close</mat-icon>
+  </div>
+  <div fxLayout="column" fxFlex>
+    <div>
+      <label>{{designService.canvasFormControls.details[this.index].label}}</label>
+    </div>
+    <div fxLayoutGap="20px">
+      <mat-slider fxFlex [max]="designService.canvasFormControls.details[this.index].max" [min]="designService.canvasFormControls.details[this.index].min"
+        [step]="designService.canvasFormControls.details[this.index].step" [thumbLabel]="designService.canvasFormControls.details[this.index].thumbLabel"
+        [tickInterval]="designService.canvasFormControls.details[this.index].interval" [value]="designService.canvasFormControls.details[this.index].value"
+        [vertical]="designService.canvasFormControls.details[this.index].vertical">
+      </mat-slider>
+    </div>
+  </div>
+  <div class="hand">
+    <mat-icon (click)="openDetails()">settings</mat-icon>
+  </div>
+  <div class="grab">
+    <mat-icon>drag_indicator</mat-icon>
+  </div>
+</div>

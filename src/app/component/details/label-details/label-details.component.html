@@ -1,0 +1,25 @@
+<form [formGroup]="labelForm">
+  <div class="text-color mat-h1" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>Label</div>
+    <button mat-icon-button (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div fxLayout="column" fxLayoutGap="10px">
+    <mat-form-field fxFlex>
+      <mat-label>Label</mat-label>
+      <input (change)="setLabel()" matInput formControlName="label" type="text" required>
+    </mat-form-field>
+    <mat-form-field fxFlex>
+      <mat-label>Font Size</mat-label>
+      <mat-select (selectionChange)="setFont()" formControlName="fontValue" required>
+        <mat-option *ngFor="let font of fontClasses" [value]="font.value">
+          {{ font.viewValue }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        Font size required!
+      </mat-error>
+    </mat-form-field>
+  </div>
+</form>

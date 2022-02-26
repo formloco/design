@@ -1,0 +1,22 @@
+<div class="text-color"fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+  <div class="hand">
+    <mat-icon (click)="designService.deleteControl(index)">close</mat-icon>
+  </div>
+  <div class="text-color"fxLayout="column" fxFlex>
+    <div class="label-padding">
+      <label>{{designService.canvasFormControls.details[this.index].label}}</label>
+    </div>
+    <div fxLayoutGap="20px">
+      <mat-slide-toggle *ngFor="let toggle of designService.canvasFormControls.details[this.index].toggleArray" 
+        [labelPosition]="toggle.labelPosition" [required]="toggle.required">
+        {{toggle.label}}
+      </mat-slide-toggle>
+    </div>
+  </div>
+  <div class="hand">
+    <mat-icon (click)="openDetails()">settings</mat-icon>
+  </div>
+  <div class="grab">
+    <mat-icon>drag_indicator</mat-icon>
+  </div>
+</div>

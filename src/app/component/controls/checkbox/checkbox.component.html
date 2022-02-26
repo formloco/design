@@ -1,0 +1,24 @@
+<div class="text-color" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+  <div class="hand">
+    <mat-icon (click)="designService.deleteControl(index)">close</mat-icon>
+  </div>
+  <div fxLayout="column" fxFlex>
+    <div class="label-padding">
+      <label>
+        {{designService.canvasFormControls.details[index].label}}{{index}}
+      </label>
+    </div>
+    <div fxLayoutGap="20px">
+      <mat-checkbox *ngFor="let checkbox of designService.canvasFormControls.details[index].checkboxArray" [labelPosition]="checkbox.labelPosition"
+        [required]="checkbox.required">
+        {{checkbox.label}}
+      </mat-checkbox>
+    </div>
+  </div>
+  <div class="hand">
+    <mat-icon (click)="openDetails()">settings</mat-icon>
+  </div>
+  <div class="grab">
+    <mat-icon>drag_indicator</mat-icon>
+  </div>
+</div>

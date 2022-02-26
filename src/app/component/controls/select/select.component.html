@@ -1,0 +1,31 @@
+<div class="text-color" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+  <div class="hand">
+    <mat-icon (click)="designService.deleteControl(index)">close</mat-icon>
+  </div>
+  <mat-form-field fxFlex>
+    <mat-label>{{designService.canvasFormControls.details[this.index].label}}</mat-label>
+    <span *ngIf="designService.canvasFormControls.details[index].multiple">
+      <mat-select multiple=true [required]="designService.canvasFormControls.details[index].required">
+        <mat-option *ngFor="let select of designService.canvasFormControls.details[index].selectArray" [value]="select.value">
+          {{select.value}}
+        </mat-option>
+      </mat-select>
+    </span>
+    <span *ngIf="!designService.canvasFormControls.details[index].multiple">
+    <mat-select [required]="designService.canvasFormControls.details[index].required">
+      <mat-option *ngFor="let select of designService.canvasFormControls.details[index].selectArray" [value]="select.value">
+        {{select.value}}
+      </mat-option>
+    </mat-select>
+    </span>
+    <mat-error>
+      {{designService.canvasFormControls.details[index].error}}
+    </mat-error>
+  </mat-form-field>
+  <div class="hand">
+    <mat-icon (click)="openDetails()">settings</mat-icon>
+  </div>
+  <div class="grab">
+    <mat-icon>drag_indicator</mat-icon>
+  </div>
+</div>

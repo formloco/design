@@ -1,0 +1,26 @@
+<div class="text-color" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+  <div class="hand">
+    <mat-icon (click)="designService.deleteControl(index)">close</mat-icon>
+  </div>
+  <div fxLayout="column" fxFlex>
+    <div class="label-padding">
+      <label>
+        {{designService.canvasFormControls.details[this.index].label}}
+      </label>
+    </div>
+    <div>
+      <mat-radio-group>
+        <mat-radio-button *ngFor="let radio of designService.canvasFormControls.details[this.index].radioArray" [labelPosition]="radio.labelPosition"
+          [value]="radio.value" [required]="designService.canvasFormControls.details[this.index].required">
+          {{radio.label}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+  <div class="hand">
+    <mat-icon (click)="openDetails()">settings</mat-icon>
+  </div>
+  <div class="grab">
+    <mat-icon class="icon2times-end">drag_indicator</mat-icon>
+  </div>
+</div>

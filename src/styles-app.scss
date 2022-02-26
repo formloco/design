@@ -1,0 +1,232 @@
+.header, .footer, .content {
+  position: absolute;
+  width: 100%;
+}
+
+.header { top: 0 }
+.footer { bottom: 0 }
+
+.content {
+  top: 75px;
+  bottom: 55px;
+  overflow: auto;
+}
+.content-full {
+  top: 0px;
+  bottom: 0px;
+  overflow: auto;
+}
+
+.nav-padding {
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.header-padding {
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+}
+
+
+.container-padding {
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.text-color {
+  color: #959595;
+}
+
+.recorder-running-color {
+  color: orange;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.icon-169px {
+  height:169px !important;
+  width:169px !important;
+  font-size:169px !important;
+}
+
+.icon-169px-action {
+  height:169px !important;
+  width:169px !important;
+  font-size:169px !important;
+  color: #90ee90;
+}
+
+.icon-select-files {
+  height:111px !important;
+  width:111px !important;
+  font-size:111px !important;
+  color: #959595;
+}
+
+.icon-120px-action {
+  height:120px !important;
+  width:120px !important;
+  font-size:120px !important;
+  color: #90ee90;
+}
+
+.icon-96px-delete {
+  height:96px !important;
+  width:96px !important;
+  font-size:96px !important;
+  color: red;
+}
+
+.icon-96px-disabled {
+  height:120px !important;
+  width:120px !important;
+  font-size:120px !important;
+  color: #959595;
+}
+
+.title {
+  color: #959595;
+  font-size: 24px;
+  padding-bottom: 10px;
+}
+
+.hand {
+  cursor: pointer;
+}
+
+.grab {
+  cursor: grab;
+}
+
+
+.admin-container {
+  margin-top: 65px;
+}
+
+.list-container {
+  height: auto;
+}
+
+.link-overlay {
+  text-align: center;
+  border: solid 1px #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  background: white;
+  min-width: 600px;
+}
+
+.files-padding {
+  padding-right: 5px;
+  padding-bottom: 20px;
+}
+
+table {
+  width: 100%;
+}
+
+footer {
+  position:fixed;
+  bottom:0px;
+  width:100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.logo-padding {
+  padding: 9px;
+}
+
+.list-menu {
+  width: 130px;
+}
+
+.padding {
+  padding: 20px;
+}
+
+.padding-top {
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+button.mat-flat-button {
+  border-radius: 0;
+}
+
+.toolbar-spacer {
+  flex: auto;
+}
+
+.form-icon {
+  font-size: 48px;
+}
+
+.form-padding {
+  padding: 6px;
+}
+
+.form-icon24 {
+  font-size: 24px;
+}
+
+.form-icon66 {
+  font-size: 66px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 16px;
+  margin-bottom: 10px;
+}
+
+.middle-padding {
+  margin-top: 9px;
+  margin-bottom: 9px;
+}
+
+.bottom-padding {
+  margin-bottom: 9px;
+}
+
+.header-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.accordion-padding {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.pdf {
+  color: red;
+}
+
+.icon-orange {
+  color: #FFAF42
+}
+
+.radio-margin {
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.radio-center {
+  text-align: center;
+}
+
+.green {
+  color: white;
+  background: #90ee90;
+}

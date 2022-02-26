@@ -1,0 +1,16 @@
+<div class="text-color" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+  <div class="hand">
+    <mat-icon (click)="designService.deleteControl(index)">close</mat-icon>
+  </div>
+  <div fxLayout="column" fxFlex>
+    <div *ngIf="designService.canvasFormControls.details[this.index].label" class="{{designService.canvasFormControls.details[this.index].fontValue}}">
+      {{designService.canvasFormControls.details[this.index].label}}
+    </div>
+  </div>
+  <div class="hand">
+    <mat-icon (click)="openDetails()">settings</mat-icon>
+  </div>
+  <div class="grab">
+    <mat-icon>drag_indicator</mat-icon>
+  </div>
+</div>

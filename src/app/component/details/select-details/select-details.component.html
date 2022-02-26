@@ -1,0 +1,75 @@
+<form [formGroup]="selectForm">
+  <div class="text-color mat-h1" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>Select/Multi-Select</div>
+    <button mat-icon-button (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div fxLayout="column" fxLayoutGap="10px">
+    <label>Multi-Select?</label>
+    <div class="top-10px" fxLayout="row">
+      <mat-radio-group formControlName="multiple" fxLayoutGap="10px">
+        <mat-radio-button [value]="true" (click)="setMultiple(true)">
+          True
+        </mat-radio-button>
+        <mat-radio-button [value]="false" (click)="setMultiple(false)">
+          False
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <mat-form-field fxFlex>
+      <mat-label>Placeholder/Label</mat-label>
+      <input (change)="setLabel()" matInput formControlName="label" type="text" required>
+    </mat-form-field>
+    <mat-form-field fxFlex>
+      <mat-label>Appearance</mat-label>
+      <mat-select (selectionChange)="setAppearance()" formControlName="appearance" required>
+        <mat-option *ngFor="let appearance of appearances" [value]="appearance.value">
+          {{ appearance.viewValue }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        Appearance required!
+      </mat-error>
+    </mat-form-field>
+    <label>Required?</label>
+    <div class="top-10px" fxLayout="row">
+      <mat-radio-group formControlName="required" fxLayoutGap="10px">
+        <mat-radio-button [value]="true" (click)="setRequired(true)">
+          True
+        </mat-radio-button>
+        <mat-radio-button [value]="false" (click)="setRequired(false)">
+          False
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <mat-form-field class="top-15px" *ngIf="selectRequired" fxFlex>
+      <mat-label>Error Message</mat-label>
+      <input (change)="setError()" matInput formControlName="error" type="text">
+    </mat-form-field>
+    <span *ngIf="!selectRequired">&nbsp;</span>
+  </div>
+
+  <div formArrayName="selectArray">
+    <div class="add-option" fxLayoutAlign="end center">
+      <mat-icon class="icon-pointer" (click)="add()" color="primary">
+        add_circle_outline
+      </mat-icon>
+    </div>
+    <div *ngFor="let select of selectArray; let i=index">
+      <div class="detail-box pad-top" [formGroupName]="i">
+        <div fxLayout="row">
+          <mat-form-field fxFlex>
+            <mat-label>Value</mat-label>
+            <input (change)="setValue(i)" matInput formControlName="value" type="text" required>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="end">
+          <mat-icon class="icon-pointer" (click)="delete(i)" color="warn">
+            delete_outline
+          </mat-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
