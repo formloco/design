@@ -8,9 +8,9 @@ export class SetCurrentIndex {
   constructor(public currentIndex: any) {}
 }
 
-export class SetPreviousIndex {
-  static type = '[Canvas] SetPreviousIndex'
-  constructor(public previousIndex: number) {}
+export class SetForms {
+  static type = '[Canvas] SetForms'
+  constructor(public forms: any) {}
 }
 
 export class SetCanvasFormControls {
@@ -18,9 +18,9 @@ export class SetCanvasFormControls {
   constructor(public canvasFormControls: object) {}
 }
 
-export class SetShowControls {
-  static type = '[Canvas] SetShowControls'
-  constructor(public showControls: boolean) {}
+export class SetFormObject {
+  static type = '[Canvas] SetFormObject'
+  constructor(public formObject: any) {}
 }
 
 export class SetIsSave {

@@ -1,19 +1,13 @@
 import { Component, OnInit } from '@angular/core'
 
 import { Observable } from 'rxjs'
-
-// import * as _ from 'lodash'
-
-import { ActivatedRoute, Params } from '@angular/router'
-
 import { Store, Select } from '@ngxs/store'
 
 import { AuthState } from '../../state/auth/auth.state'
 import { DeviceState } from '../../state/device/device.state'
 
-import { SetPage } from '../../state/auth/auth-state.actions'
-
-import { environment } from '../../../environments/environment'
+import { IdbCrudService } from "../../service-idb/idb-crud.service"
+import { SetForms } from '../canvas/state/canvas-state.actions'
 
 @Component({
   selector: 'app-layout',
@@ -28,10 +22,14 @@ export class LayoutComponent implements OnInit {
   @Select(DeviceState.background) background$!: Observable<string>
   @Select(DeviceState.screenWidth) screenWidth$!: Observable<string>
 
-  constructor(private store: Store) { }
+  constructor(
+    private store: Store,
+    private idbCrudService: IdbCrudService) { }
 
   ngOnInit(): void {
-    
+    this.idbCrudService.readAll('form').subscribe(forms => {
+      this.store.dispatch(new SetForms(forms))
+    })
   }
 
 }

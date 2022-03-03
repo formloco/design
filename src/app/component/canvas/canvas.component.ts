@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 
 import { CdkDragDrop, moveItemInArray, copyArrayItem } from '@angular/cdk/drag-drop'
 
 import { SetIsSave } from './state/canvas-state.actions'
+import { CanvasState } from '../canvas/state/canvas.state'
 
 import { Store } from '@ngxs/store'
 import { environment } from '../../../environments/environment'
@@ -15,8 +16,8 @@ import { DesignerControlService } from "../../service/designer-control.service"
   templateUrl: './canvas.component.html',
   styleUrls: ['./canvas.component.scss']
 })
-export class CanvasComponent {
-  
+export class CanvasComponent implements OnInit {
+
   @Input() connectedTo: any
 
   form: any
@@ -26,6 +27,18 @@ export class CanvasComponent {
     private store: Store,
     public designService: DesignService,
     public designerControlService: DesignerControlService) {
+  }
+
+  ngOnInit() {
+    this.store.select(CanvasState.formObject).subscribe((formObj: any) => {
+      if (formObj) {
+        this.designService.canvasFormControls.details = formObj.form.details
+
+        formObj.form.details.forEach((detail: any) => {
+          this.designService.controls.push(detail.type)
+        })
+      }
+    })
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -38,12 +51,12 @@ export class CanvasComponent {
         event.currentIndex)
       this.designerControlService.updateDetail(event.container.data, event.currentIndex)
     }
-    
+
     this.store.dispatch(new SetIsSave(true))
 
-    let details:any = []
-    this.designService.controls.forEach(control =>{
-      let detail = this.designService.canvasFormControls.details.filter((detail: any) => detail.type == control) 
+    let details: any = []
+    this.designService.controls.forEach(control => {
+      let detail = this.designService.canvasFormControls.details.filter((detail: any) => detail.type == control)
       details.push(detail[0])
     })
     this.designService.canvasFormControls.details = details

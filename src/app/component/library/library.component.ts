@@ -1,13 +1,18 @@
 import { Component, OnInit } from '@angular/core'
 
-// import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material/dialog'
+import { Observable } from 'rxjs'
+import { MatBottomSheet } from '@angular/material/bottom-sheet'
 
 import { Store, Select } from '@ngxs/store'
 import { SetPage, SetPageLabel } from '../../state/auth/auth-state.actions'
-import { SetShowControls } from '../canvas/state/canvas-state.actions'
 
 import { DesignService } from "../../service/design.service"
 import { environment } from '../../../environments/environment'
+
+import { CanvasState } from '../canvas/state/canvas.state'
+import { SetCurrentIndex, SetFormObject, SetIsSave } from '../canvas/state/canvas-state.actions'
+
+import { SignupComponent } from "../signup/signup.component"
 
 @Component({
   selector: 'app-library',
@@ -16,48 +21,40 @@ import { environment } from '../../../environments/environment'
 })
 export class LibraryComponent implements OnInit {
 
+  @Select(CanvasState.forms) forms$!: Observable<any>
+
+  kioske = environment.kioske
   version = environment.version
+  homeUrl = environment.homeUrl
 
   constructor(
     private store: Store,
+    private bottomSheet: MatBottomSheet,
     public designService: DesignService) { }
 
   ngOnInit(): void {
   
   }
   
+  create() {
+    this.store.dispatch(new SetFormObject(undefined))
+    this.store.dispatch(new SetPage('design'))
+    this.store.dispatch(new SetPageLabel('Create'))
+  }
 
-  openForm(value:any) {
-    this.designService.fileArray = []
-    this.designService.detailArray = []
-    this.designService.canvasFormControls = []
-    this.designService.canvasFormControls.details = []
+  edit(idx: any, formObj: any) {
+    this.store.dispatch(new SetCurrentIndex(idx))
+    this.store.dispatch(new SetFormObject(formObj))
+    this.store.dispatch(new SetIsSave(true))
     this.store.dispatch(new SetPage('design'))
     this.store.dispatch(new SetPageLabel('Edit'))
-    if (value === 'new') {
-      this.store.dispatch(new SetShowControls(false))
-      this.store.dispatch(new SetPageLabel('Create'))
-    }
+  }
+  admin() {}
+
+  signup() {
+    this.bottomSheet.open(SignupComponent)
   }
 
-  signin() {
-    // const dialogConfig = new MatDialogConfig()
-    // dialogConfig.height = '600px'
-    // dialogConfig.width = '500px'
-    // dialogConfig.data = {
-    //   isSignin: true
-    // }
-    // const dialogRef = this.dialog.open(AuthComponent, dialogConfig)
-    // dialogRef.afterClosed().subscribe(() => {
-    //   // this.getUser()
-    //   // this.appService.getForms()
-    // })
-  }
-
-  signout() {
-    // this.appService.authProvider = undefined
-    // this.userName = undefined
-    // this.appService.getForms()
-  }
-
+  forms() {}
+  
 }

@@ -49,7 +49,7 @@ export class DeviceState {
   @Selector()
   static isDarkMode(state: DeviceStateModel): boolean {
     return state.isDarkMode
-  }
+  } 
 
   @Action(DeviceActions.SetLat)
   onSetLat(ctx: StateContext<DeviceStateModel>, { lat }: DeviceActions.SetLat) {

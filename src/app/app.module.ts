@@ -31,7 +31,7 @@ import { LayoutComponent } from './component/layout/layout.component'
 import { CanvasComponent } from './component/canvas/canvas.component'
 import { LibraryComponent } from './component/library/library.component'
 import { DesignComponent } from './component/design/design.component'
-
+import { SignupComponent } from './component/signup/signup.component'
 // form controls
 import { RadioComponent } from './component/controls/radio/radio.component'
 import { LabelComponent } from './component/controls/label/label.component'
@@ -43,7 +43,6 @@ import { CheckboxComponent } from './component/controls/checkbox/checkbox.compon
 import { TextareaComponent } from './component/controls/textarea/textarea.component'
 
 // form detail configuration
-import { DetailsComponent } from './component/details/details.component'
 import { LabelDetailsComponent } from './component/details/label-details/label-details.component'
 import { RadioDetailsComponent } from './component/details/radio-details/radio-details.component'
 import { SliderDetailsComponent } from './component/details/slider-details/slider-details.component'
@@ -57,6 +56,7 @@ import { TextareaDetailsComponent } from './component/details/textarea-details/t
   declarations: [
     AppComponent,
     DesignComponent,
+    SignupComponent,
     LayoutComponent,
     CanvasComponent,
     LibraryComponent,
@@ -68,7 +68,6 @@ import { TextareaDetailsComponent } from './component/details/textarea-details/t
     CheckboxComponent,
     TextareaComponent,
     SelectComponent,
-    DetailsComponent,
     LabelDetailsComponent,
     RadioDetailsComponent,
     SliderDetailsComponent,

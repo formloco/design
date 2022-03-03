@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs/operators'
 
 import { Platform } from '@angular/cdk/platform'
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
+import { ActivatedRoute, Params } from '@angular/router'
 
 import { AuthService } from "./service/auth.service"
 import { IdbCrudService } from "./service-idb/idb-crud.service"
@@ -45,6 +46,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store,
     public platform: Platform,
+    private route: ActivatedRoute,
     private authService: AuthService,
     private idbCrudService: IdbCrudService,
     breakpointObserver: BreakpointObserver,
@@ -70,6 +72,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.token = token
       localStorage.setItem('formToken', this.token)
     })
+
     this.idbCrudService.readAll('prefs').subscribe((prefs:any) => {
       this.prefs = prefs
       if (this.prefs.length > 0) {

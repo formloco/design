@@ -1,0 +1,38 @@
+<div fxLayout="column">
+  <div class="text-color mat-h1" fxLayout="row" fxLayoutAlign="space-between center">
+    <div>Deploy to Cloud</div>
+    <div fxLayoutGap="20px">
+      <button mat-icon-button (click)="close()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <form class="container-padding">
+    <div fxLayout="column">
+      <div class="mat-headline green" fxLayoutAlign="center">An email is needed for ID</div>
+      <form [formGroup]="emailSignupForm">
+        <div fxLayout="column" class="form-padding">
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Email Address</mat-label>
+            <input matInput placeholder="Email" formControlName="email" type="text" required>
+            <mat-error>
+              Email address is required!
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Password" formControlName="password" type="password" required>
+            <mat-error>
+              Password is required!
+            </mat-error>
+          </mat-form-field>
+          <button (click)="signupEmail()" mat-stroked-button color="accent">
+            Sign up with Email
+          </button>
+        </div>
+      </form>
+      <br>
+      <div class="green" fxLayoutAlign="center">You will be emailed a verification code</div>
+    </div>
+  </form>
+</div>

@@ -43,16 +43,22 @@ export class DesignComponent implements OnInit {
     public designService: DesignService,
     private successService: SuccessService,
     private idbCrudService: IdbCrudService) {
-      this.canvasForm = this.fb.group({
-        name: [null, Validators.required]
-      })
-     }
-
-  ngOnInit(): void {
-    // this.currentIndex$.subscribe(idx => {console.log(idx)})
-    // console.log(this.designService.controls)
+    this.canvasForm = this.fb.group({
+      name: [null, Validators.required]
+    })
   }
 
+  ngOnInit() {
+    this.designService.controls = []
+    this.designService.canvasFormControls = []
+    this.designService.canvasFormControls.details = []
+    this.store.select(CanvasState.formObject).subscribe((formObj: any) => {
+      if (formObj) {
+        this.canvasForm.patchValue({name: formObj.name})
+        this.designService.canvasFormControls.details = formObj.form.details
+      }
+    })
+  }
 
   close() {
     this.store.dispatch(new SetPage('library'))
@@ -60,18 +66,18 @@ export class DesignComponent implements OnInit {
 
   save(): void {
     // this.form["name"] = this.canvasForm.controls['name'].value
-    // if (this.designService.formObj === undefined)
-    //   this.saveIdbForm()
-    // else {
-    //   this.designService.formObj 
-    //   this.idbCrudService.read('form', this.designService.formObj.id).subscribe(form => {
-    //     this.form = form
-    //     // this.form["name"] = this.canvasForm.controls['name'].value
-    //     // this.form.form = this.designService.canvasFormControls
-    //     this.idbCrudService.put('form', this.form).subscribe()
-    //     this.successService.popSnackbar('Successfully Saved')
-    //   })
-    // }
+    if (this.designService.formObj === undefined)
+      this.saveIdbForm()
+    else {
+      this.designService.formObj
+      this.idbCrudService.read('form', this.designService.formObj.id).subscribe(form => {
+        // this.form = form
+        // this.form["name"] = this.canvasForm.controls['name'].value
+        // this.form.form = this.designService.canvasFormControls
+        this.idbCrudService.put('form', form).subscribe()
+        this.successService.popSnackbar('Successfully Saved')
+      })
+    }
   }
 
   run() {
@@ -104,11 +110,11 @@ export class DesignComponent implements OnInit {
   }
 
   saveIdbForm() {
-    
+
     let idbForm = ({
       form: this.designService.canvasFormControls,
       form_id: uuid.v4(),
-      // name: this.canvasForm.controls['name'].value,
+      name: this.canvasForm.controls['name'].value,
       tenant_id: this.tenantId,
       date_created: new Date(),
       date_archived: null,
@@ -123,16 +129,16 @@ export class DesignComponent implements OnInit {
     this.idbCrudService.put('form', idbForm).subscribe(id => {
       this.designService.formObj = idbForm
       this.designService.formObj["id"] = id
-      this.designService.detailArray = idbForm.form.details
-      this.designService.controlArray = idbForm.form.controls
+      this.designService.canvasFormControls.detailArray = idbForm.form.details
+      // this.designService.controlArray = idbForm.form.controls
     })
     this.successService.popSnackbar('Successfully Saved')
 
   }
 
-  delete() {}
+  delete() { }
 
-  publish() {}
+  signin() { }
 
   clearIndex() {
     this.store.dispatch(new SetCurrentIndex(undefined))

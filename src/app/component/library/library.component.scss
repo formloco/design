@@ -1,6 +1,6 @@
 .custom.mat-card {
-  height: 150px;
-  width: 150px;
+  height: 90px;
+  width: 90px;
   padding: 3px;
   margin: 13px;
   background-color: rgb(71,120,141);
@@ -20,37 +20,24 @@
 
 .card-icon {
   color: white;
-  font-size: 30px;
+  font-size: 45px;
+  margin-left: 25px;
 }
 
 .card-icon-add {
-  margin-left: 18px;
+  margin-left: 15px;
   color: white;
-  font-size: 115px;
-}
-
-.px12 {
-  margin-bottom: 12px;
-}
-
-.publish {
-  margin-left: 5px;
-  margin-top: 9px;
-  margin-bottom: 5px;
-  color: white;
-  font-size: 12px;
+  font-size: 60px;
 }
 
 .form-title {
-  padding-top: 9px;
-  padding-left: 9px;
-  height: 45px;
+  padding-left: 6px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: white;
 }
 
 .form-title-bg {
-  padding-left: 13px;
+  padding-left: 7px;
   font-style: normal;
   font-variant-ligatures: normal;
   font-variant-caps: normal;
@@ -58,76 +45,18 @@
   font-variant-east-asian: normal;
   font-weight: 400;
   font-stretch: normal;
-  font-size: 22px;
+  font-size: 14px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: white;
 }
-
-.white-lb {
-  color: white;
-}
-
-.line-padding {
-  padding-top: 6px;
-  padding-bottom: 10px;
-}
-
-.action-label {
-  padding-top: 7px;
-  font-size: 10px;
-  color: white;
-}
-
-.link-label {
-  margin-top: -3px;
-  padding-left: 6px;
-  font-size: 10px;
-  color: white;
-}
-
-.action-label-data {
-  padding-top: 7px;
-  font-size: 10px;
-  color: white;
-  padding-left: 4px;
-}
-
-.action-label-pub {
-  padding-bottom: 7px;
-  font-size: 10px;
-  color: white;
-}
-
-.link-overlay {
-  text-align: center;
-  border: solid 1px #ccc;
-  border-radius: 5px;
-  padding: 20px;
-  min-width: 140px;
-}
-
-.drop3px {
-  margin-top: 3px;
-}
-
-.responsive-container {
-  padding-left: 30px;
-}
- 
-.topright {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-}
-
-.add-padding {
-  margin-bottom: 12px;
-}
-
+Design
 .spacer {
   flex: 1 1 auto;
 }
 .green {
-  color: white;
-  background: #90ee90;
+  color: #90ee90;
+}
+
+.orange {
+  color: #ffb74d;
 }

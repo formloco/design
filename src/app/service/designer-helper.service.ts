@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment'
 })
 export class DesignerHelperService {
 
-  linkUrl = environment.linkUrl
+  linkUrl = environment.homeUrl
 
   constructor(
     private successService: SuccessService

@@ -43,12 +43,12 @@ export class SetIsDarkMode {
   constructor(public isDarkMode: boolean) {}
 }
 
-export class SetVoice{
+export class SetVoice {
   static type = '[Device] SetVoice'
   constructor(public voice: any[]) {}
 }
 
-export class SetTranscription{
+export class SetTranscription {
   static type = '[Device] SetTranscription'
   constructor(public transcription: string) {}
 }

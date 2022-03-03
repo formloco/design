@@ -1,7 +1,7 @@
 export interface CanvasStateModel {
   event: any
   currentIndex: any
-  previousIndex: number
+  forms: []
   formObject: object
   name: string,
   controls: [],

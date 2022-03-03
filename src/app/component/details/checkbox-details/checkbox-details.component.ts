@@ -56,10 +56,6 @@ export class CheckboxDetailsComponent implements OnInit {
         required: element.required,
         error: element.error
       }))
-      // if (element.required === true)
-      //   this.checkboxRequired.push(true)
-      // else
-      //   this.checkboxRequired.push(false)
     })
 
     this.isDetail = true
@@ -108,7 +104,6 @@ export class CheckboxDetailsComponent implements OnInit {
   }
 
   setRequired(value: any, index: number) {
-    console.log(value, index)
     if (value) this.checkboxRequired.push(index)
     else {
       const indexToDelete = this.checkboxRequired.indexOf(index)
@@ -116,15 +111,6 @@ export class CheckboxDetailsComponent implements OnInit {
     }
     this.designService.canvasFormControls.details[this.index].checkboxArray[index].required = value
   }
-
-  // setRequired(value: any) {
-  //   if (value === true)
-  //     this.checkboxRequired[this.index] = true
-  //   else
-  //     this.checkboxRequired[this.index] = false
-  //   this.designService.canvasFormControls.details[this.index].checkboxArray[this.index].required
-  //   this.checkboxForm.controls["checkboxArray"].value
-  // }
 
   close() {
     this.matBottomSheetRef.dismiss()

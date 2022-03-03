@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core'
 
+import * as _ from 'lodash'
+
 import { DesignService } from "../service/design.service"
 import { CanvasState } from '../component/canvas/state/canvas.state'
 
@@ -208,8 +210,9 @@ export class DesignerControlService {
       }
     }
 
-    this.designService.canvasFormControls.details.push(obj)
-
+    let details = _.cloneDeep(this.designService.canvasFormControls.details)
+    details.push(obj)
+    this.designService.canvasFormControls.details = details
   }
 }
 

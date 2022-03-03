@@ -1,7 +1,7 @@
 <div class="header">
   <form [formGroup]="canvasForm">
     <div class="form-header" fxLayout="row" fxLayoutAlign="space-between center" >
-      <mat-form-field fxFlex="50">
+      <mat-form-field class="text-color" fxFlex="50">
         <mat-label>Form Name</mat-label>
         <input matInput placeholder="Form Name" formControlName="name" type="text">
         <mat-error>
@@ -9,7 +9,7 @@
         </mat-error>
       </mat-form-field>
       <div fxLayoutGap="30px">
-        <button *ngIf="(isSave$ | async)" mat-stroked-button color="primary" (click)="save()">
+        <button *ngIf="(isSave$ | async)" mat-stroked-button color="primary" (click)="save()" [disabled]="!canvasForm.valid">
           Save
         </button>
         <div class="text-color" fxLayoutAlign="end center" fxFlex>
@@ -60,7 +60,10 @@
 <div class="footer">
   <mat-toolbar *ngIf="(isSave$ | async)" fxLayoutAlign="space-between center">
     <div>
-      <button mat-stroked-button color="accent" (click)="publish()">Publish</button>
+      <button class="green" (click)="signin()" mat-stroked-button>
+        <mat-icon>rocket_launch</mat-icon>&nbsp;Deploy
+      </button>
+      <!-- <button mat-stroked-button color="accent" (click)="publish()">Publish</button> -->
       <button mat-button color="primary" (click)="saveAs()">
         Save As
       </button>

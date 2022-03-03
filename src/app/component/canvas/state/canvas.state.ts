@@ -22,8 +22,8 @@ export class CanvasState {
   }
 
   @Selector()
-  static previousIndex(state: CanvasStateModel): number {
-    return state.previousIndex
+  static forms(state: CanvasStateModel): any {
+    return state.forms
   }
 
   @Selector()
@@ -55,10 +55,10 @@ export class CanvasState {
     });
   }
 
-  @Action(CanvasActions.SetPreviousIndex)
-  onSetPreviousIndex(ctx: StateContext<CanvasStateModel>, { previousIndex }: CanvasActions.SetPreviousIndex) {
+  @Action(CanvasActions.SetForms)
+  onSetForms(ctx: StateContext<CanvasStateModel>, { forms }: CanvasActions.SetForms) {
     ctx.patchState({
-      previousIndex: previousIndex
+      forms: forms
     });
   }
 
@@ -67,7 +67,14 @@ export class CanvasState {
     ctx.patchState({
       isSave: isSave
     });
-  } 
+  }
+  
+  @Action(CanvasActions.SetFormObject)
+  onSetFormObject(ctx: StateContext<CanvasStateModel>, { formObject }: CanvasActions.SetFormObject) {
+    ctx.patchState({
+      formObject: formObject
+    });
+  }
 
 }
 
