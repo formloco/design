@@ -14,7 +14,7 @@ export const environment = {
   idbName: Formloco.idbName,
   tenantId: Formloco.tenantId,
   emailUrl: Formloco.emailUrl,
-  version: '2.0',
+  version: '2.0 - beta',
   homeUrl: Formloco.homeUrl,
   signinUrl: Formloco.signinUrl,
   redirectForgotPasswordUrl: Formloco.redirectForgotPasswordUrl
