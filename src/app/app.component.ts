@@ -1,20 +1,20 @@
 import { Component, OnInit, HostBinding, OnDestroy } from '@angular/core';
 
 import { OverlayContainer } from '@angular/cdk/overlay'
+import { ActivatedRoute, Params } from '@angular/router'
 
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 
 import { Platform } from '@angular/cdk/platform'
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
-import { ActivatedRoute, Params } from '@angular/router'
 
 import { AuthService } from "./service/auth.service"
 import { IdbCrudService } from "./service-idb/idb-crud.service"
 
 import { Store } from '@ngxs/store'
 import { SetScreenSize, SetScreenWidth } from './state/device/device-state.actions'
-import { SetUser, SetPage } from './state/auth/auth-state.actions'
+import { SetUser, SetPage, SetTenant } from './state/auth/auth-state.actions'
 import { SetBackground, SetIsDarkMode } from './state/device/device-state.actions'
 
 import { environment } from '../environments/environment'
@@ -30,8 +30,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   destroyed = new Subject<void>();
 
-  token:any
-  prefs:any
+  token: any
+  prefs: any
+  email!: string
+  isDarkMode = true
 
   myInnerWidth = window.innerWidth
 
@@ -46,8 +48,8 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store,
     public platform: Platform,
-    private route: ActivatedRoute,
     private authService: AuthService,
+    private route: ActivatedRoute,
     private idbCrudService: IdbCrudService,
     breakpointObserver: BreakpointObserver,
     private overlayContainer: OverlayContainer) {
@@ -68,18 +70,19 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.authService.token().subscribe(token => {
-      this.token = token
-      localStorage.setItem('formToken', this.token)
+    this.authService.token().subscribe((res: any) => {
+      localStorage.setItem('formToken', res.token)
     })
-
-    this.idbCrudService.readAll('prefs').subscribe((prefs:any) => {
+    this.idbCrudService.readAll('prefs').subscribe((prefs: any) => {
       this.prefs = prefs
       if (this.prefs.length > 0) {
-        if (this.prefs[0]["user"]["isDarkMode"]) this.setMode('darkMode')
+        this.isDarkMode = this.prefs[0]["user"]["isDarkMode"]
+        if (this.isDarkMode) this.setMode('darkMode')
         else this.setMode('')
 
         this.store.dispatch(new SetUser(this.prefs[0]["user"]))
+        this.store.dispatch(new SetTenant({ tenant_id: this.prefs[0]["user"].tenant_id, email: this.prefs[0]["user"].email }))
+
         this.store.dispatch(new SetIsDarkMode(this.prefs[0]["user"]["isDarkMode"]))
         this.store.dispatch(new SetPage('library'))
       }
@@ -91,7 +94,7 @@ export class AppComponent implements OnInit, OnDestroy {
     })
   }
 
-  setMode(darkClassName:string) {
+  setMode(darkClassName: string) {
     this.className = 'darkMode' ? darkClassName : ''
 
     if (darkClassName === 'darkMode') {

@@ -20,18 +20,20 @@ import { IdbPersistenceService } from './service-idb/idb-persistence.service'
 import { NgxsModule } from '@ngxs/store'
 import { States } from './state/app.state'
 
-// import { PipeModule } from '../pipe/pipe.module'
+import { PipeModule } from './pipe/pipe.module'
 
 // third party
 // import { QuillModule } from "ngx-quill"
 import { NgxDropzoneModule } from 'ngx-dropzone'
 
 // app functional components
+import { TermsComponent } from './component/terms/terms.component'
 import { LayoutComponent } from './component/layout/layout.component'
 import { CanvasComponent } from './component/canvas/canvas.component'
+import { SignupComponent } from './component/signup/signup.component'
+import { SigninComponent } from './component/signin/signin.component'
 import { LibraryComponent } from './component/library/library.component'
 import { DesignComponent } from './component/design/design.component'
-import { SignupComponent } from './component/signup/signup.component'
 // form controls
 import { RadioComponent } from './component/controls/radio/radio.component'
 import { LabelComponent } from './component/controls/label/label.component'
@@ -56,9 +58,10 @@ import { TextareaDetailsComponent } from './component/details/textarea-details/t
   declarations: [
     AppComponent,
     DesignComponent,
-    SignupComponent,
     LayoutComponent,
     CanvasComponent,
+    SignupComponent,
+    SigninComponent,
     LibraryComponent,
     RadioComponent,
     LabelComponent,
@@ -75,7 +78,8 @@ import { TextareaDetailsComponent } from './component/details/textarea-details/t
     TextboxDetailsComponent,
     CheckboxDetailsComponent,
     SelectDetailsComponent,
-    TextareaDetailsComponent
+    TextareaDetailsComponent,
+    TermsComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +87,7 @@ import { TextareaDetailsComponent } from './component/details/textarea-details/t
     MaterialModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    
+    PipeModule,
     NgxsModule.forRoot(States, { developmentMode: !environment.production })
   ],
   providers: [

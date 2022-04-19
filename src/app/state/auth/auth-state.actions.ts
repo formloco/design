@@ -1,4 +1,4 @@
-import { User, Tenant } from './auth-state.model'
+import { User, Tenant, Form } from './auth-state.model'
 
 export class SetIsIdentified {
   static type = '[Auth] SetIsIdentified'
@@ -44,12 +44,6 @@ export class SetUser {
   static type = '[Auth] SetUser'
   constructor(public user: User) {}
 }
-
-export class SetSelectedForm {
-  static type = '[Auth] SetSelectedForm'
-  constructor(public selectedForm: {}) {}
-}
-
 export class SetForms {
   static type = '[Auth] SetForms'
   constructor(public forms: any[]) {}
@@ -59,4 +53,10 @@ export class SetPageLabel {
   static type = '[Auth] SetPageLabel'
   constructor(public pageLabel: string) {}
 }
+
+export class SetCloudForms {
+  static type = '[Auth] SetCloudForms'
+  constructor(public cloudForms: Form[]) {}
+}
+
 

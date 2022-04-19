@@ -6,8 +6,13 @@ const routes: Routes = [{
   path: '',
   redirectTo: '/', 
   pathMatch: 'full'
-}, {
+}, 
+{
   path: '',
+  component: LayoutComponent
+},
+{
+  path: 'email/:email/:id',
   component: LayoutComponent
 }]
 

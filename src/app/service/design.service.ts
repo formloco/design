@@ -34,7 +34,9 @@ export class DesignService {
 
   deleteControl(idx: number) {
     this.controls.splice(idx, 1)
-    this.canvasFormControls.details.splice(idx, 1)
+    let details = [...this.canvasFormControls.details]
+    details.splice(idx, 1)
+    this.canvasFormControls.details = details
 
     if (this.formId)
       this.idbCrudService.read('form', this.formId).subscribe(form => {

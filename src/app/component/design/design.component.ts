@@ -9,14 +9,18 @@ import { SetPage } from '../../state/auth/auth-state.actions'
 import { SetCurrentIndex } from '../canvas/state/canvas-state.actions'
 
 import { Store, Select } from '@ngxs/store'
+import { Form } from "../../state/auth/auth-state.model"
 
 import { environment } from '../../../environments/environment'
 
+import { FormService } from "../../service/form.service"
 import { DesignService } from "../../service/design.service"
 import { SuccessService } from "../../service/success.service"
 import { IdbCrudService } from "../../service-idb/idb-crud.service"
 
+import { AuthState } from '../../state/auth/auth.state'
 import { CanvasState } from '../canvas/state/canvas.state'
+import { SetForms } from '../canvas/state/canvas-state.actions'
 
 import { ControlLabels, ControlIcons } from "../../constants/design"
 
@@ -30,6 +34,7 @@ export class DesignComponent implements OnInit {
   @Select(CanvasState.isSave) isSave$!: Observable<any>
 
   isMenu = true
+  tenant: any
   canvasForm: FormGroup
   tenantId = environment.tenantId
 
@@ -40,6 +45,7 @@ export class DesignComponent implements OnInit {
   constructor(
     private store: Store,
     private fb: FormBuilder,
+    private formService: FormService,
     public designService: DesignService,
     private successService: SuccessService,
     private idbCrudService: IdbCrudService) {
@@ -49,96 +55,92 @@ export class DesignComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.tenant = this.store.selectSnapshot(AuthState.tenant)
     this.designService.controls = []
     this.designService.canvasFormControls = []
     this.designService.canvasFormControls.details = []
     this.store.select(CanvasState.formObject).subscribe((formObj: any) => {
       if (formObj) {
-        this.canvasForm.patchValue({name: formObj.name})
-        this.designService.canvasFormControls.details = formObj.form.details
+        this.canvasForm.patchValue({ name: formObj.name })
+        this.designService.canvasFormControls.details = formObj.details
       }
     })
   }
 
   close() {
-    this.store.dispatch(new SetPage('library'))
+    this.idbCrudService.readAll('form').subscribe(forms => {
+      this.store.dispatch(new SetForms(forms))
+      this.store.dispatch(new SetPage('library'))
+    })
   }
 
   save(): void {
-    // this.form["name"] = this.canvasForm.controls['name'].value
-    if (this.designService.formObj === undefined)
-      this.saveIdbForm()
+    const tenant: any = this.store.selectSnapshot(AuthState.tenant)
+    const formObj: any = this.store.selectSnapshot(CanvasState.formObject)
+
+    if (!formObj) {
+      const name = this.canvasForm.controls['name'].value
+      this.createForm(name)
+    }
     else {
-      this.designService.formObj
-      this.idbCrudService.read('form', this.designService.formObj.id).subscribe(form => {
-        // this.form = form
-        // this.form["name"] = this.canvasForm.controls['name'].value
-        // this.form.form = this.designService.canvasFormControls
-        this.idbCrudService.put('form', form).subscribe()
-        this.successService.popSnackbar('Successfully Saved')
+      this.idbCrudService.read('form', formObj.id).subscribe((form: any) => {
+        form["name"] = this.canvasForm.controls['name'].value
+        form.details = this.designService.canvasFormControls.details
+        form.icon = 'dynamic_form'
+        this.idbCrudService.put('form', form).subscribe(_ => {
+          if (tenant) {
+            this.formService.update(form).subscribe((form: any) => {
+              this.successService.popSnackbar(form.message)
+            })
+          }
+        })
       })
     }
   }
 
-  run() {
-    // this.appService.page = 'run'
-    // this.appService.pageTitle = ''
-    // this.appService.isAnonymous = false
-    // this.appService.parentPage = 'form-library'
-    // this.designService.controlArray = this.canvasFormControl.controls
-    // this.designService.detailArray = this.canvasFormControl.details
-  }
-
   saveAs() {
-    // const dialogConfig = new MatDialogConfig()
-    // dialogConfig.width = '450px'
-    // dialogConfig.data = {
-    //   name: this.canvasForm.get('name').value
-    // }
-    // const dialogRef = this.dialog.open(SaveasComponent, dialogConfig)
-    // dialogRef.afterClosed().subscribe(data => {
-    //   if (data) {
-    //     this.designService.currentIndex = 0
-    //     this.canvasFormControl = this.designService.formObj.form
-    //     this.designService.canvasFormControls = this.designService.formObj.form
-    //     this.canvasForm.patchValue({
-    //       name: this.designService.formObj.form.name
-    //     })
-    //     this.dropForm[1] = this.canvasFormControl.name
-    //   }
-    // })
+    let name = this.canvasForm.controls['name'].value
+    name = name + 'copy'
+    this.createForm(name)
   }
 
-  saveIdbForm() {
-
-    let idbForm = ({
-      form: this.designService.canvasFormControls,
+  createForm(name: string) {
+    let deviceForm: Form = ({
+      details: this.designService.canvasFormControls.details,
       form_id: uuid.v4(),
-      name: this.canvasForm.controls['name'].value,
-      tenant_id: this.tenantId,
+      name: name,
       date_created: new Date(),
       date_archived: null,
-      date_last_access: new Date(),
+      date_last_access: null,
       user_created: null,
       user_archived: null,
       is_data: false,
+      is_list: false,
+      is_deployed: false,
       is_published: false,
       type: 'dynamic'
     })
 
-    this.idbCrudService.put('form', idbForm).subscribe(id => {
-      this.designService.formObj = idbForm
+    this.idbCrudService.put('form', deviceForm).subscribe(id => {
+      this.designService.formObj = deviceForm
       this.designService.formObj["id"] = id
-      this.designService.canvasFormControls.detailArray = idbForm.form.details
-      // this.designService.controlArray = idbForm.form.controls
-    })
-    this.successService.popSnackbar('Successfully Saved')
+      this.designService.canvasFormControls.detailArray = deviceForm.details
 
+      if (this.tenant) {
+        deviceForm['user_created'] = { email: this.tenant.email, date_created: new Date().toLocaleString("en-US", { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }) }
+        this.formService.create(deviceForm).subscribe((form: any) => {
+          this.successService.popSnackbar(form.message)
+        })
+      }
+    })
   }
 
-  delete() { }
-
-  signin() { }
+  delete() { 
+    const formObj: any = this.store.selectSnapshot(CanvasState.formObject)
+    this.idbCrudService.delete('form', formObj.id).subscribe(_ => {
+      this.successService.popSnackbar('Form Deleted.')
+    })
+  }
 
   clearIndex() {
     this.store.dispatch(new SetCurrentIndex(undefined))

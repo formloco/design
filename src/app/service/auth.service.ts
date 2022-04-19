@@ -17,4 +17,12 @@ export class AuthService {
     return this.http.get(this.authUrl+'token/')
   }
 
+  signupEmail(obj: any) {
+    return this.http.post(this.authUrl+'email/', obj)
+  }
+
+  signinEmail(obj: any) {
+    return this.http.post(this.authUrl, obj)
+  }
+
 }

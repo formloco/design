@@ -16,12 +16,13 @@ export enum Formloco {
   tenant = 'formloco',
   linkedinUrl = 'https://www.linkedin.com/in/formloco',
   githubUrl = 'https://github.com/formloco/',
-  kioskeEmail = 'brock@formloco.com',
+  kioskeEmail = 'polly@formloco.com',
   homeUrl = 'https://mobile.formloco.com/',
   apiUrl = 'https://api.formloco.com/api/',
   authUrl = 'https://api.formloco.com/auth/',
   formUrl = 'https://api.formloco.com/form/',
   emailUrl = 'https://api.formloco.com/email/',
   notificationUrl = 'https://api.formloco.com/notification/',
-  signinUrl = 'https://mobile.formloco.com/e93f63d8e62d44da93009229f8a7f890/'
+  signinUrl = 'https://mobile.formloco.com/signin/',
+  redirectForgotPasswordUrl = 'https://mobile.formloco.com/O451fd2702f54a00b1007f6e80b32e45/'
 }

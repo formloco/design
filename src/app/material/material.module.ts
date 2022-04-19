@@ -36,7 +36,8 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
 import { MatBadgeModule } from '@angular/material/badge'
 import { MatTabsModule } from '@angular/material/tabs'
 import { DragDropModule } from '@angular/cdk/drag-drop'
- 
+import { MatTooltipModule } from '@angular/material/tooltip'
+
 @NgModule({
   exports:[
     FormsModule,
@@ -74,7 +75,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop'
     MatBottomSheetModule,
     MatBadgeModule,
     MatTabsModule,
-    DragDropModule
+    DragDropModule,
+    MatTooltipModule
   ],
   providers: []
 })

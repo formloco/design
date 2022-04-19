@@ -6,7 +6,6 @@ import { SetIsSave } from './state/canvas-state.actions'
 import { CanvasState } from '../canvas/state/canvas.state'
 
 import { Store } from '@ngxs/store'
-import { environment } from '../../../environments/environment'
 
 import { DesignService } from "../../service/design.service"
 import { DesignerControlService } from "../../service/designer-control.service"
@@ -21,7 +20,7 @@ export class CanvasComponent implements OnInit {
   @Input() connectedTo: any
 
   form: any
-  tenantId = environment.tenantId
+
 
   constructor(
     private store: Store,
@@ -31,12 +30,14 @@ export class CanvasComponent implements OnInit {
 
   ngOnInit() {
     this.store.select(CanvasState.formObject).subscribe((formObj: any) => {
+      console.log(formObj)
       if (formObj) {
-        this.designService.canvasFormControls.details = formObj.form.details
+        this.designService.canvasFormControls.details = formObj.details
 
-        formObj.form.details.forEach((detail: any) => {
+        formObj.details.forEach((detail: any) => {
           this.designService.controls.push(detail.type)
         })
+        console.log(this.designService.controls)
       }
     })
   }

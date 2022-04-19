@@ -6,18 +6,23 @@ import { Formloco } from '../app/state/app.state'
 export const environment = {
   production: false,
 
-  kioske: true,
+  kioske: false,
   
   authUrl: Formloco.authUrl,
-  // homeUrl: Formloco.deployUrl,
+  formUrl: Formloco.formUrl,
   logo: Formloco.logo,
   linkedinUrl: Formloco.linkedinUrl,
   githubUrl: Formloco.githubUrl,
   kioskeEmail: Formloco.kioskeEmail,
   idbName: Formloco.idbName,
   tenantId: Formloco.tenantId,
+  emailUrl: Formloco.emailUrl,
   version: '2.0',
   homeUrl: 'http://localhost:4200/',
+  signinUrl: 'http://localhost:4200/signin/',
+  // formUrl: 'http://localhost:9002/form/',
+  // authUrl: 'http://localhost:9000/auth/',
+  redirectForgotPasswordUrl: Formloco.redirectForgotPasswordUrl
 };
 
 /*

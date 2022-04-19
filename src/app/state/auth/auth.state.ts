@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { State, Selector, StateContext, Action } from '@ngxs/store'
 
 import * as AuthActions from './auth-state.actions'
-import { AuthStateModel, User, Tenant } from './auth-state.model'
+import { AuthStateModel, User, Tenant, Form } from './auth-state.model'
 
 @Injectable()
 @State<AuthStateModel>({
@@ -39,6 +39,11 @@ export class AuthState {
   @Selector()
   static user(state: AuthStateModel): User {
     return state.user
+  }
+
+  @Selector()
+  static cloudforms(state: AuthStateModel): Form[] {
+    return state.cloudForms
   }
 
   @Action(AuthActions.SetIsIdentified)
@@ -83,11 +88,11 @@ export class AuthState {
     })
   }
 
-  @Action(AuthActions.SetSelectedForm)
-  onSetSelectedForm(ctx: StateContext<AuthStateModel>, { selectedForm }: AuthActions.SetSelectedForm) {
+  @Action(AuthActions.SetCloudForms)
+  onSetCloudForms(ctx: StateContext<AuthStateModel>, { cloudForms }: AuthActions.SetCloudForms) {
     ctx.patchState({
-      selectedForm: selectedForm
-    });
+      cloudForms: cloudForms
+    })
   }
 
 }

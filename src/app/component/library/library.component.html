@@ -1,12 +1,21 @@
 <mat-toolbar>
   <mat-icon color="accent">design_services</mat-icon>&nbsp;<span class="orange">Design</span>
   <span class="toolbar-spacer"></span>
-  <a *ngIf="!kioske" color="primary" href="{{homeUrl}}" mat-stroked-button>
-    <mat-icon class="material-icons-outlined">dynamic_form</mat-icon>&nbsp;Forms
-  </a>
-  <a *ngIf="kioske" mat-icon-button color="primary" href="{{homeUrl}}">
-    <mat-icon class="material-icons-outlined">home</mat-icon>
-  </a>
+  <div fxLayoutGap="20px">
+    <button *ngIf="!(tenant$ | async)" (click)="signin()" mat-stroked-button color="primary">
+      Sign In
+    </button>
+    <button *ngIf="(tenant$ | async)" (click)="signout()" mat-stroked-button color="primary">
+      Sign Out
+    </button>
+    <a *ngIf="(tenant$ | async)" mat-icon-button color="primary"
+      href="{{homeUrl}}forms/{{(tenant$ | async).email}}/{{(tenant$ | async).tenant_id}}">
+      <mat-icon class="material-icons-outlined">home</mat-icon>
+    </a>
+    <a *ngIf="!(tenant$ | async)" mat-icon-button color="primary" href="{{homeUrl}}">
+      <mat-icon class="material-icons-outlined">home</mat-icon>
+    </a>
+  </div>
 </mat-toolbar>
 <div class="row-margin" fxLayout="row wrap">
   <mat-card class="custom" (click)="create()">
@@ -16,29 +25,56 @@
     </div>
   </mat-card>
   <div *ngFor="let formObj of (forms$ | async); let i=index">
-    <mat-card class="custom" (click)="edit(i, formObj)">
+    <mat-card *ngIf="formObj.is_deployed && !formObj.user_archived" class="custom" matBadgeColor="accent" matBadge="D">
       <mat-card-content>
-        <mat-icon class="card-icon-add hand material-icons-outlined">
-          dynamic_form
-        </mat-icon>
-        <!-- <mat-icon class="card-icon-add hand">edit_note</mat-icon> -->
-        <div fxLayout="row" class="form-title">
-          {{formObj.name}}
+        <div class="top" fxLayoutAlign="space-around center">
+          <button mat-icon-button (click)="edit(i, formObj)" matTooltip="Edit Form">
+            <mat-icon class="material-icons-outlined">dynamic_form</mat-icon>
+          </button>
+          <button *ngIf="formObj.is_deployed" mat-icon-button (click)="deployToggle(formObj)"
+            matTooltip="Form Undeployed">
+            <mat-icon class="material-icons-outlined">published_with_changes</mat-icon>
+          </button>
         </div>
+        <div class="text hand" (click)="edit(i, formObj)" fxLayoutAlign="center">{{formObj.name | truncate:['40',
+          '...']}}</div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card *ngIf="!formObj.is_deployed && !formObj.user_archived" class="custom">
+      <mat-card-content>
+        <div fxLayoutAlign="space-around center">
+          <button mat-icon-button (click)="edit(i, formObj)" matTooltip="Edit Form">
+            <mat-icon class="material-icons-outlined">dynamic_form</mat-icon>
+          </button>
+          <button mat-icon-button (click)="deployToggle(formObj)" matTooltip="Form Deployed">
+            <mat-icon class="material-icons-outlined">unpublished</mat-icon>
+          </button>
+        </div>
+        <div class="text hand" (click)="edit(i, formObj)" fxLayoutAlign="center">{{formObj.name | truncate:['25',
+          '...']}}</div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card *ngIf="formObj.user_archived" class="custom" matBadgeColor="warn" matBadge="X">
+      <mat-card-content>
+        <div fxLayoutAlign="space-around center">
+          <button mat-icon-button (click)="edit(i, formObj)" matTooltip="Edit Form">
+            <mat-icon class="material-icons-outlined">dynamic_form</mat-icon>
+          </button>
+          <button mat-icon-button (click)="deployToggle(formObj)" matTooltip="Form Archived">
+            <mat-icon class="material-icons-outlined">cancel</mat-icon>
+          </button>
+        </div>
+        <div class="text hand" (click)="edit(i, formObj)" fxLayoutAlign="center">{{formObj.name | truncate:['25',
+          '...']}}</div>
       </mat-card-content>
     </mat-card>
   </div>
 </div>
 <div class="footer">
   <mat-toolbar>
-    <div *ngIf="kioske">
-      <a class="green" (click)="signup()" mat-stroked-button>
-        <mat-icon>rocket_launch</mat-icon>&nbsp;Signup
-      </a>
-    </div>
-    <div *ngIf="!kioske" fxLayoutAlign="space-around center">
-      <img src="assets/parrot.svg" height="28px">&nbsp;<span class="mat-small text-color">{{version}}</span> 
-    </div>
     <span class="toolbar-spacer"></span>
+    <div fxLayoutAlign="space-around center">
+      <img src="assets/parrot.svg" height="28px">&nbsp;<span class="mat-small text-color">{{version}}</span>
+    </div>
   </mat-toolbar>
 </div>

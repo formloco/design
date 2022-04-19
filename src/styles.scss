@@ -11,6 +11,7 @@ $angular-default-theme: mat-light-theme(
       primary: $angular-primary,
       accent: $angular-accent,
       warn: $angular-warn,
+      green: #90ee90
     ),
   )
 );
@@ -22,6 +23,7 @@ $angular-dark-theme: mat-dark-theme(
       primary: $angular-primary,
       accent: $angular-accent,
       warn: $angular-warn,
+      green: #90ee90
     ),
   )
 );

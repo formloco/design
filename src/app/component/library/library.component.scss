@@ -20,8 +20,14 @@
 
 .card-icon {
   color: white;
-  font-size: 45px;
-  margin-left: 25px;
+  font-size: 36px;
+}
+
+.top {
+  padding-top: 5px;
+}
+.text {
+  padding: 5px;
 }
 
 .card-icon-add {
@@ -49,7 +55,7 @@
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: white;
 }
-Design
+
 .spacer {
   flex: 1 1 auto;
 }
@@ -59,4 +65,9 @@ Design
 
 .orange {
   color: #ffb74d;
+}
+
+.mat-badge-content {
+  background: #90ee90;
+  color: white;
 }
