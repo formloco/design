@@ -5,15 +5,12 @@ import { Formloco } from '../app/state/app.state'
 
 export const environment = {
   production: false,
-
-  kioske: false,
   
   authUrl: Formloco.authUrl,
   formUrl: Formloco.formUrl,
   logo: Formloco.logo,
   linkedinUrl: Formloco.linkedinUrl,
   githubUrl: Formloco.githubUrl,
-  kioskeEmail: Formloco.kioskeEmail,
   idbName: Formloco.idbName,
   tenantId: Formloco.tenantId,
   emailUrl: Formloco.emailUrl,

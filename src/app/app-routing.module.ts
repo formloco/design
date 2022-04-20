@@ -14,6 +14,10 @@ const routes: Routes = [{
 {
   path: 'email/:email/:id',
   component: LayoutComponent
+},
+{
+  path: 'kioske/true',
+  component: LayoutComponent
 }]
 
 @NgModule({

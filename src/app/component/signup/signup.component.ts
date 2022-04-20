@@ -31,7 +31,6 @@ export class SignupComponent {
   logo = environment.logo
   linkedinUrl = environment.linkedinUrl
   githubUrl = environment.githubUrl
-  kioskeEmail = environment.kioskeEmail
 
   emailSignupForm: FormGroup
   forgotPasswordForm: FormGroup

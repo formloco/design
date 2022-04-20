@@ -16,7 +16,6 @@ export enum Formloco {
   tenant = 'formloco',
   linkedinUrl = 'https://www.linkedin.com/in/formloco',
   githubUrl = 'https://github.com/formloco/',
-  kioskeEmail = 'polly@formloco.com',
   homeUrl = 'https://mobile.formloco.com/',
   apiUrl = 'https://api.formloco.com/api/',
   authUrl = 'https://api.formloco.com/auth/',

@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core'
 import * as _ from 'lodash'
 import { Observable } from 'rxjs'
 import { Store, Select } from '@ngxs/store'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 
 import { AuthState } from '../../state/auth/auth.state'
 import { DeviceState } from '../../state/device/device.state'
@@ -27,6 +27,7 @@ export class LayoutComponent implements OnInit {
 
   constructor(
     private store: Store,
+    private router: Router,
     private route: ActivatedRoute,
     private formService: FormService,
     private idbCrudService: IdbCrudService) { }
@@ -34,7 +35,7 @@ export class LayoutComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id')
     const email = this.route.snapshot.paramMap.get('email')
-
+   
     if (id && email) {
       this.store.dispatch(new SetTenant({ tenant_id: id, email: email }))
 
@@ -51,6 +52,10 @@ export class LayoutComponent implements OnInit {
         this.store.dispatch(new SetForms(forms))
       })
     }
+    // this route does not set tenant so home button
+    // returns to kioske main page, otherwise home goes
+    // to tenant forms page
+    else if (this.router.url === '/kioske/true') {} 
     else {
       this.idbCrudService.readAll('prefs').subscribe((prefs: any) => {
         if (prefs.length > 0) {
@@ -65,7 +70,6 @@ export class LayoutComponent implements OnInit {
                 let formClone = _.cloneDeep(form)
                 let cloudForm = cloudForms.find(f => f.form_id === form.form_id)
                 if (cloudForm !== undefined) {
-                  console.log('got here', cloudForm)
                   formClone['date_archived'] = cloudForm['date_archived']
                   formClone['user_archived'] = cloudForm['user_archived']
                   formClone['is_deployed'] = cloudForm['is_deployed']
@@ -80,7 +84,6 @@ export class LayoutComponent implements OnInit {
         }
       })
     }
-
   }
 
 }

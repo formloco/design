@@ -29,8 +29,6 @@ export class LibraryComponent implements OnInit {
   @Select(AuthState.tenant) tenant$!: Observable<any>
   @Select(CanvasState.forms) forms$!: Observable<any>
 
-  // tenant: any
-  kioske = environment.kioske
   version = environment.version
   homeUrl = environment.homeUrl
   signinUrl = environment.signinUrl
