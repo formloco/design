@@ -17,6 +17,7 @@ export const environment = {
   version: '2.0',
   homeUrl: 'http://localhost:4200/',
   signinUrl: 'http://localhost:4200/signin/',
+  homeKioskeUrl: 'http://localhost:4200/',
   // formUrl: 'http://localhost:9002/form/',
   // authUrl: 'http://localhost:9000/auth/',
   redirectForgotPasswordUrl: Formloco.redirectForgotPasswordUrl

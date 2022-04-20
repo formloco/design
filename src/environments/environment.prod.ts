@@ -13,6 +13,7 @@ export const environment = {
   emailUrl: Formloco.emailUrl,
   version: '2.0',
   homeUrl: Formloco.homeUrl,
+  homeKioskeUrl: Formloco.homeKioskeUrl,
   signinUrl: Formloco.signinUrl,
   redirectForgotPasswordUrl: Formloco.redirectForgotPasswordUrl
 };

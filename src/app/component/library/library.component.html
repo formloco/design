@@ -12,7 +12,7 @@
       href="{{homeUrl}}forms/{{(tenant$ | async).email}}/{{(tenant$ | async).tenant_id}}">
       <mat-icon class="material-icons-outlined">home</mat-icon>
     </a>
-    <a *ngIf="!(tenant$ | async)" mat-icon-button color="primary" href="{{homeUrl}}">
+    <a *ngIf="!(tenant$ | async)" mat-icon-button color="primary" href="{{homeKioskeUrl}}">
       <mat-icon class="material-icons-outlined">home</mat-icon>
     </a>
   </div>

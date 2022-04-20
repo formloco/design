@@ -17,6 +17,7 @@ export enum Formloco {
   linkedinUrl = 'https://www.linkedin.com/in/formloco',
   githubUrl = 'https://github.com/formloco/',
   homeUrl = 'https://mobile.formloco.com/',
+  homeKioskeUrl = 'https://formloco.com/',
   apiUrl = 'https://api.formloco.com/api/',
   authUrl = 'https://api.formloco.com/auth/',
   formUrl = 'https://api.formloco.com/form/',

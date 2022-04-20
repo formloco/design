@@ -31,6 +31,7 @@ export class LibraryComponent implements OnInit {
 
   version = environment.version
   homeUrl = environment.homeUrl
+  homeKioskeUrl = environment.homeKioskeUrl
   signinUrl = environment.signinUrl
 
   constructor(
